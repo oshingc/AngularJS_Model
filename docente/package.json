@@ -1,0 +1,33 @@
+{
+  "name": "intranet_sga",
+  "version": "0.1.0",
+  "description": "Intranet de Docentes.",
+  "main": "server.js",
+  "author": "Le Cordon Bleu Peru",
+  "dependencies": {
+    "express": "~3.4.4",
+    "moment": "^2.8.1",
+    "mongoose": "~3.6.2",
+    "node-rest-client": "0.7.7",
+    "request": "^2.40.0",
+    "socket.io": ">= 0.9.6"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-html2js-preprocessor": "~0.1.0",
+    "karma-jasmine": "~0.1.3",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": ">=0.10.4",
+    "karma-ng-scenario": "~0.1.0"
+  }
+}

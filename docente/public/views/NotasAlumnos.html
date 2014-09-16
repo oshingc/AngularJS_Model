@@ -1,0 +1,169 @@
+<div style="font-size:12px">
+<div class="box primary hidden-xs hidden-sm" bs-affix   style="background-color:white;z-index:1">
+	<header >
+		<h5 style="width:100%">
+			<blink class="badge pull-right" style="background-color:yellow; color:gray; margin-top: -4px;" data-animation="" data-placement="bottom-right" bs-tooltip="tooltip" ng-show="cambios"><i class="fa fa-exclamation-triangle cursor-default"></i></blink>
+			{{clase.title}}&nbsp&nbsp&nbsp&nbsp
+		</h5>
+	</header>
+	<div class="body">
+		<img style="width:55px;height:55px" src="img/loading.gif" alt="" ng-show="loading"/>
+		<a type="button" class="btn btn-primary" ng-click="save()" ng-show = "alumnos != null" ng-disabled="!cambios">
+				GUARDAR
+		</a>
+	</div>
+</div>
+</br>
+
+
+</br>
+<div class="column col-md-12 hidden-xs hidden-sm" style="font-size:13px" ng-show = "alumnos != null" >
+	<div data-fade="1" ng-model="tabs.activeTab" bs-tabs="tabs">
+	</div>
+</div>
+
+<div class="box primary visible-xs visible-sm"  style="background-color:white;z-index:1" ng-show = "alumnos != null">
+	<header >
+		<h5 style="width:100%">
+			<blink class="badge pull-right" style="background-color:yellow; color:gray" data-animation="" data-placement="bottom-right" bs-tooltip="tooltip" ng-show="cambios"><i class="fa fa-exclamation-triangle cursor-default"></i></blink>
+			Notas Alumnos
+		</h5>
+	</header>
+	</div>
+
+		<!--Table with responsive components-->
+		<div class="visible-xs visible-sm" style="width:100%;" ng-repeat="a in alumnos">
+
+			<header style="width:30px;">
+
+			</header>
+			<table style="width:100%;">
+
+				<thead>
+					<th></th>
+					<th></th>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>
+
+							<div>
+								<div class="panel panel-success" style="width:100%; " >
+
+									<div class="panel-heading" style="width:100%;">
+
+									<h3 class="panel-title" style="font-size:10px; text-align:center;">
+									  	{{nalumnos[$index].aiAlumnoCarrera.aiAlumno.apellidoPaterno}} {{nalumnos[$index].aiAlumnoCarrera.aiAlumno.apellidoMaterno}}, {{nalumnos[$index].aiAlumnoCarrera.aiAlumno.nombre}}
+
+									</h3>
+									<h3 class="panel-title" style="font-size:10px; text-align:center;"> {{capitalize(a)}}</h3>
+
+									</div>
+
+									<div class="panel-body no-borders">
+
+									    <table>
+
+										    <thead></thead>
+										    <tbody>
+
+											    <tr>
+
+											    	<td class="col-xs-2">
+
+										    
+													    <div class="profile-photo-data" style="padding-right: 0px;padding-left: 10px;padding-top: 10px;padding-bottom: 10px">
+													      <img fallback-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSAw_zNXJxm5-lrB1nS1C4Apck21EaLYlfxiMqucd2N9HCqu6G-Qw" ng-src="{{nalumnos[$index].aiAlumnoCarrera.aiAlumno.urlFoto}}" height="100%" width="50px" />
+													    </div>
+
+										    		</td>
+
+										    		<td class="col-xs-10" style="vertical-align:middle">
+
+														<table class="table table-bordered table-notas-xs responsive">
+												    		<tr ng-show="tipo==2">  
+												    			<th> </th>		
+																<th class="tableResponsive">T</th>
+																<th class="tableResponsive">P</th>
+																<th class="tableResponsive">Prom</th>
+															</tr>
+															<tr>
+
+																<th class="tableResponsive">Práctica</th>  		
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaT), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaT)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promPracticaT}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promPracticaP}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPractica), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPractica)}">
+														    		{{a.aiAlumnoMatriculaCursoNota.promPractica}}
+														    	</th>
+
+															</tr>
+																<th class="tableResponsive">Parcial</th>  		
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promParcialT), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promParcialT)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promParcialT}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promParcialP), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promParcialP)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promParcialP}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promParcial), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promParcial)}">
+														    		{{a.aiAlumnoMatriculaCursoNota.promParcial}}
+														    	</th>
+															<tr>
+															<tr>
+																<th class="tableResponsive">Final</th>  		
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promFinalT), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promFinalT)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promFinalT}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promFinalT), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promFinalT)}" ng-show="tipo==2">
+														    		{{a.aiAlumnoMatriculaCursoNota.promFinalT}}
+														    	</th>
+														    	<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promFinal), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promFinal)}">
+														    		{{a.aiAlumnoMatriculaCursoNota.promFinal}}
+														    	</th>
+															</tr>															
+														</table>
+														<table class="table table-bordered responsive">
+															<tr>
+																<th class="tableResponsive">Recup.</th>
+																<th class="tableResponsive" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP)}">
+																	{{a.aiAlumnoMatriculaCursoNota.examenRecuperacion}}
+																</th>
+															</tr>
+															<tr>
+																<th class="centerElement">Total</th>
+																<th class="centerElement" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaP)}">
+																	{{a.aiAlumnoMatriculaCursoNota.promedio}}
+																</th>
+															</tr>
+														</table>
+
+										    		</td>
+
+										    	</tr>
+
+									    	</tbody>
+
+								  		</table>
+								    
+								  	</div>
+
+								</div>
+
+							</div>
+
+						</td>
+
+					</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+<i class="btn btn-primary btn-circle fa fa-chevron-up scrollup" style="padding:10px" scroll-to="" ngFade="24"/>
+</div>

@@ -1,0 +1,45 @@
+<div class="row ui-sortable">
+	
+	<ul class="menu">
+		<li><a href="/#intro">Home</a></li>
+	</ul>
+  <!-- .col-lg-6 -->
+  	<div class="col-lg-12">
+	    <p> Click <a ng-click="loadPeople()">here</a> to load data. {{subgrupos.length}}</p>
+	    <div class="box">
+	      <header>
+	        <h5>Default styles</h5>                
+	      </header>
+	      <div id="defaultTable" class="body collapse in">
+	        <table class="table responsive-table">
+	            <thead>
+			        <tr>
+			            <th>Periodo</th>
+				        <th>Grupo</th>
+				        <th>Adm. Mod</th>
+				        <th>Carrera</th>
+				        <th>Vacantes</th>
+				        <th>Inscritos</th>
+						<th>Ingresantes</th>
+						<th>Accion</th>
+			        </tr>
+		    	</thead>
+				<tbody>		        
+			        <tr ng-repeat="s in subgrupos">
+				            <td>{{s.id.idPeriodo}}</td>
+					        <td>{{s.id.idGrupo}}</td>
+					        <td>{{s.id.idAdmModalidad}}</td>
+					        <td>{{s.id.idCarrera}}</td>
+					        <td>{{s.vacantes}}</td>
+					        <td>{{s.inscritos}}</td>
+					        <td>{{s.ingresantes}}</td>
+					        <td ><button type="button" class="btn btn-primary" ng-click="inscribir(s)"> Inscribir</button></td>
+			        </tr>
+		    	</tbody>
+	        </table>
+	      </div>
+	    </div>
+  	</div><!-- /.col-lg-6 -->
+
+  
+</div>

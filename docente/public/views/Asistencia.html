@@ -1,0 +1,172 @@
+<div class="box primary" style="background-color:white;z-index:1">
+    <header>
+        <div class="icons">
+            <i class="glyphicon glyphicon-ok"></i>
+        </div>
+        <div>
+        <h5>Asistencias de Hoy</h5>
+        </div>
+        <div class="hidden-xs">
+         <button href="" class="btn btn-success back-button" ng-click="$hide();linkMenuPrin('user.horario')">
+            <i class="fa fa-arrow-left"><span class="text-button"> Atrás</span></i>
+         </button>
+        </div>
+        <div class="visible-xs">
+         <button href="" class="btn btn-success back-button" ng-click="$hide();linkMenuPrin('user.horario')">
+            <i class="fa fa-arrow-left"></i>
+         </button>
+        </div>
+    </header>
+</div>
+
+<div style="font-size:10pt;" ng-show="clasesActuales.length>0" >
+    <div class="hidden-xs" ng-show="clasesActuales.length>0" style="margin-left:18%;">
+         <select ng-model="c" ng-options="c.aiCurso.nombre+' '+millisToHourFormat(c.horaInicio)+' - '+millisToHourFormat(c.horaFin) for c in clasesActuales " style="padding-left: 0px;margin-left: 300px;" ng-change="elegirClaseActual(c)">
+        <option value="">Seleccione un curso</option>
+        </select><br/>
+    </div>
+    <div class="visible-xs" ng-show="clasesActuales.length>0" style="text-align:center" >
+         <select ng-model="c" ng-options="c.aiCurso.nombre+' '+millisToHourFormat(c.horaInicio)+' - '+millisToHourFormat(c.horaFin) for c in clasesActuales " style="padding-left: 0px;" ng-change="elegirClaseActual(c)">
+        <option value="">Seleccione un curso</option>
+        </select><br/>
+    </div>
+
+    <span ng-show="clasesActuales.length==0">{{tableEmpty}}</span>
+
+    <div ng-show="claseActual.length==0">{{claseSinAlumnos}}</div>
+    <div class="hidden-xs">
+    <table class="table responsive-table zebra-striped" ng-show="claseActual.length>0">
+        <thead>
+            <tr>
+                <th style="width:5%">
+                    <div>N°</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:6%">
+                    <div>Foto</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:9%" class="codigo">
+                    <div>Código</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:9%" class="codigo">
+                    <div>Sección</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:9%" class="codigo">
+                    <div>Grupo</div>
+                    <div style="height:20px"></div>
+                </th>
+             <th style="width:48%">
+                    <div>Apellidos y Nombres</div>
+                    <div style="height:20px"></div>
+                </th>
+             <!--<th style="width:24%">
+                    <div>Nombres</div>
+                    <div style="height:20px"></div>
+                </th>-->
+                <th style="width:10%; text-align:center;">
+                    <div style="text-align:center">Asistencia</div>
+                    <input id="asist" style="text-align:center" type="checkbox" data-ng-click="triggerAll(claseActual)"></input>
+                   
+                </th>
+                <th style="width:10%; text-align:center;">
+                    <div style="text-align:center">Tardanza</div>
+                    <div style="height:22px"></div>
+                    
+                </th>
+
+                <!--<th style="width:6%; text-align:center;">
+                    <div>Inasistencias Totales</div>
+                </th>-->
+
+                <th style="width:6%; text-align:center;">
+                    <div style="text-align:center;">Inasistencias (%)</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in claseActual | orderBy: '+aiAlumnoAsistencia.aiAlumno.apellidoPaterno'"  class="list-style">
+                <td>{{$index+1}}.</td>
+                <td>
+                     <div class="profile-photo-data">
+                                <div>
+                                <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+                                <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+                                
+                                <span style="width:150px;">
+                                   <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+                                    <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+
+                                </span>
+                                </div>
+                                </div>
+                </td>
+                <td>{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}</td>
+                <td>{{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}</td>
+                <td>{{a.aiAlumnoAsistencia.grupo}}</td>
+                <td>{{nombreCompleto(a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno,a.aiAlumnoAsistencia.aiAlumno.apellidoMaterno,a.aiAlumnoAsistencia.aiAlumno.nombre)}} </td>
+                <!--<td>{{}} </td>-->
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.asistio" ng-change="updateSelectedAsistencia(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.tardanza" ng-change="updateSelectedTardanza(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>
+                <!--<td style="text-align:center;">{{a.clasesAsistidas}}</td>-->
+                <td>
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>
+               
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="visible-xs">
+    <table class="table zebra-striped" ng-show="claseActual.length>0">
+        <thead>
+            <tr>
+                <th style="width:5%">
+                    <div>N°</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:48%">
+                    <div>Apellidos y Nombres</div>
+                    <div style="height:20px"></div>
+                </th>
+                <th style="width:10%; text-align:center;">
+                    <div style="text-align:center">¿Asistió?</div>
+                    <input id="asist" style="text-align:center" type="checkbox" data-ng-click="triggerAll(claseActual)"></input>
+                   
+                </th>
+                <th style="width:10%; text-align:center;">
+                    <div style="text-align:center">¿Tarde?</div>
+                    <div style="height:22px"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in claseActual | orderBy: '+aiAlumnoAsistencia.aiAlumno.apellidoPaterno'"  class="list-style">
+                <td>{{$index+1}}.</td>
+                <td>
+                    <a style="color:black"title="{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}} - {{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}" data-content="{{a.aiAlumnoAsistencia.aiCarrera.nombre}}" data-trigger="hover" data-placement="right-bottom" data-animation="" data-template="views/template/Asistencia/DetalleAlumnoPopover.html"  bs-popover>
+                    {{a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno}},{{a.aiAlumnoAsistencia.aiAlumno.nombre}}
+                    </a>
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>
+                <!--<td>{{}} </td>-->
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.asistio" ng-change="updateSelectedAsistencia(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.tardanza" ng-change="updateSelectedTardanza(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>               
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div style="text-align:center; " ng-show="habilitarRegistroDeAsistencia()">
+     <button id="btnMsg" type="button" class="btn btn-lg btn-primary" style="width:222px;border-bottom-width: 1px;margin-bottom: 12px;"
+                data-placement="initial-state" data-duration="6" bs-alert="alert" ng-click="edit()"  ng-hide="claseActual.length==0">{{btnMessage}}
+        </button>
+
+    </div>
+
+</div>
+
+<div ng-show="clasesActuales.length==0">{{noClasesMessage}}</div>

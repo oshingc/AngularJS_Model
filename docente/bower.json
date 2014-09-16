@@ -1,0 +1,45 @@
+{
+  "name": "INTRANET SGA",
+  "version": "0.2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular-scenario": "~1.2.1",
+    "angular-route": "~1.2.1",
+    "angular-mocks": "~1.2.1",
+    "requirejs": "~2.1.9",
+    "requirejs-text": "~2.0.10"
+  },
+  "dependencies": {
+    "angular": "1.2.22",
+    "jquery": "1.9.1",
+    "jquery-ui": "1.10.4",
+    "bootstrap-additions": "0.2.2",
+    "font-awesome": "~4.0.3",
+    "gmaps": "~0.4.9",
+    "html5shiv": "~3.7.0",
+    "respond": "~1.4.2",
+    "prettify": "*",
+    "modernizr": "~2.7.1",
+    "socket.io-client": "~0.9.16",
+    "ngstorage": "~0.3.0",
+    "css3-magic": "*",
+    "angular-ui-router": "0.2.8-bowratic-tedium",
+    "angular-strap": "2.0.5",
+    "angular-motion": "~0.3.2",
+    "angular-animate": "1.2.22",
+    "angular-sanitize": "~1.2.15",
+    "angular-touch": "~1.2.16",
+    "angular-block-ui": "~0.0.11",
+    "fullcalendar": "2.0.3",
+    "moment": "2.8.1",
+    "html2canvas": "~0.4.1",
+    "jspdf-autotable": "*",
+    "floatThead": "~1.2.8"
+  }
+}

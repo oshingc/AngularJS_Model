@@ -1,0 +1,18 @@
+<div class="popover">
+	<div class="arrow"></div>
+		<h3 class="popover-title" ng-bind="title" ng-show="title"></h3>
+	<div class="popover-content" ng-bind="content"></div>
+	<div class="profile-photo-data">
+	    <div>
+	        <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+	        <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+	        
+	        <span style="width:150px;">
+	           <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+	            <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+	        </span>
+	    </div>
+	</div>
+</div>

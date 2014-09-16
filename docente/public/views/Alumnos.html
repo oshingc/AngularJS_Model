@@ -1,0 +1,188 @@
+<div style="font-size:12px">
+<div class="box primary" style="background-color:white;z-index:1">
+    <header>
+        <div class="icons">
+            <i class="fa fa-th-list"></i>
+        </div>
+        <div>
+        <h5>Lista de Alumnos</h5>
+        </div>
+    </header>
+    <div class="body">
+      <div class="row">
+        <div class="col-xs-5 col-md-6">
+          <b style="float:right;">Curso:</b>
+        </div>
+        <div class="col-xs-7 col-md-6">
+          {{clase.title}}
+        </div>
+
+        <div class="col-xs-5 col-md-6">
+          <b style="float:right;">Período:</b>
+        </div>
+        <div class="col-xs-7 col-md-6">
+          {{clase.periodo}}
+        </div>
+
+        <div class="col-xs-5 col-md-6">
+          <b style="float:right;">Horario:</b>
+        </div>
+        <div class="col-xs-7 col-md-6">
+          {{hourFormat(formatoHoraDeHorarioBox(clase._start.getHours(),clase._start.getMinutes()))}} - {{hourFormat(formatoHoraDeHorarioBox(clase._end.getHours(),clase._end.getMinutes()))}}
+        </div>
+      </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+    <div>
+      
+                <div id="defaultTable" class="hidden-xs table-responsive">
+                <table class="table ">
+                  <thead>
+                    <tr class="info text-header-list">
+                      <th>N°</th>
+                      <th>Foto</th>
+                      <th>Código</th>
+                      <th>Nombre</th>
+                      <th>Apellido Paterno</th>
+                      <th>Apellido Materno</th>                      
+                      <th>Carrera</th>
+                      <th style="text-align:center;">Semestre</th>
+                      <th>Sección</th>
+                      <th style="text-align:center;">Grupo</th>
+                    </tr>
+                  </thead>
+                  <tbody>           
+                      <tr ng-repeat="a in alumnos" class="list-style">
+                          <td>{{$index+1}}.</td>
+                          <td>
+                            <div class="profile-photo-data">
+                            <div>
+
+                            <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG"  width="28px" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'M'" />
+
+                            <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" width="28px" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'F'" />
+                            
+
+                            <span style="width:150px;">
+                              
+                              <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" tyle="height:100% !important; width:150px !important" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'M'" />
+
+                              <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" tyle="height:100% !important; width:150px !important" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'F'" />
+
+                            </span>
+                            </div>
+                            </div>
+
+                          </td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.nombre}}</td>   
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.apellidoPaterno}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.apellidoMaterno}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiCarrera.nombre}}</td>                          
+                          <td style="text-align:center;">{{a.semestre}}</td>  
+                          <td>{{a.seccionReferencial}}</td>
+                          <td style="text-align:center;">{{a.grupoReferencial}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+              <!--Table with responsive components-->
+              <div class="visible-xs" style="width:100%;" ng-repeat="a in alumnos">
+
+              <table style="width:100%;">
+
+              <tbody>
+              <tr>
+                <td>
+
+                <div>
+               <div class="panel panel-success" style="width:100%; " >
+
+                  <div class="panel-heading" style="width:100%;">
+                    <h6 class="panel-title text-center text-small">
+                      {{a.aiAlumnoCarrera.aiAlumno.nombre}}            
+                      {{a.aiAlumnoCarrera.aiAlumno.apellidoPaterno}} {{a.aiAlumnoCarrera.aiAlumno.apellidoMaterno}}
+                      
+                    </h6>
+                  </div>
+
+
+
+                  <div class="panel-body no-borders text-small">
+
+
+                    <table>
+
+                    <thead></thead>
+                    <tbody>
+
+                    <tr>
+
+                    <td>
+                      <div class="profile-photo-data" 
+                      style="padding-right: 0px;padding-left:0;padding-top: 10px;padding-bottom: 10px;">
+
+                        <img fallback-src="img/profile-photos/profile-male.gif" 
+                          class="img-responsive" width="70px"
+                          ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'M'" />
+
+                        <img fallback-src="img/profile-photos/profile-female.jpg" 
+                          class="img-responsive" width="70px"
+                          ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'F'" />
+
+                      </div>
+                    </td>
+
+                    <td>
+
+
+                      <div >
+                        <label style="padding-left: 20px;">Semestre:</label> {{a.semestre}}
+                      </div>
+                      <div >
+                        <label style="padding-left: 20px;">Sección:</label>{{a.seccionReferencial}}
+                      </div>
+                      <div >
+                        <label style="padding-left: 20px;">Grupo:</label>{{a.grupoReferencial}}
+                      </div>
+                      <!--<div>
+                        <label>Nom. Carrera:</label> {{a.aiAlumnoCarrera.aiCarrera.nombre}}
+                      </div>-->
+
+                    </td>
+
+                    </tr>
+
+                    </tbody>
+
+                  </table>
+                    
+                  </div>
+
+                </div>
+
+                </div>
+
+              
+              </td>
+            </tr>
+
+              </tbody>
+            </table>
+
+            </div>
+
+
+    </div>
+<i class="btn btn-primary btn-circle fa fa-chevron-up scrollup" style="padding:10px" 
+    scroll-to=""/>
+</div>

@@ -1,0 +1,50 @@
+<table class="table table-bordered centerElement" ng-show = "alumnos != null && notaDisT != null" >
+    <thead>
+
+    	<tr>
+    		<th class="centerElement col-lg-1" style="vertical-align: middle;" rowspan="2"> N° </th>
+    		<th class="centerElement col-lg-1" style="vertical-align: middle;" rowspan="2"> Foto </th>
+    		<th class="centerElement col-lg-1" style="vertical-align: middle;" rowspan="2"> Código </th>
+    		<th class="centerElement col-lg-2" style="vertical-align: middle;" rowspan="2"> Alumno </th>
+    		<th class="centerElement col-lg-6" style="vertical-align: middle;" colspan="{{nroPrTeorico}}" > Prácticas </th>	        
+	        <th class="centerElement col-lg-1" style="vertical-align: middle;" rowspan="2"> Promedio </th>
+    	</tr>
+    	<tr>
+	    	<th class="centerElement col-lg-1" ng-repeat="n in practicasT[alumnos[0].id]" style="vertical-align: middle; width:{{50/nroPrTeorico}}%;">
+	    		{{$index+1}}
+	    	</th>
+    	</tr>
+    	
+    </thead>
+    <tbody>
+        <tr ng-repeat="a in alumnos" ng-show="a.teoria">
+        	<td style="vertical-align: middle; font-weight:bold">
+                {{$index+1}}
+            </td>
+            <td style="vertical-align: middle" >
+                <div class="profile-photo-data">
+                
+                    <div>
+                        <img fallback-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSAw_zNXJxm5-lrB1nS1C4Apck21EaLYlfxiMqucd2N9HCqu6G-Qw" style="width:40px; height:100%" class="img-responsive"
+                          ng-src="{{nalumnos[$index].aiAlumnoCarrera.aiAlumno.urlFoto}}"/>
+                          <span class="pr" ng-class="{pr:imagenPosicion($index)}" style="width:160px; height:220px">
+                          <img fallback-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSAw_zNXJxm5-lrB1nS1C4Apck21EaLYlfxiMqucd2N9HCqu6G-Qw" class="img-responsive" style="width:160px; height:200px"
+                          ng-src="{{nalumnos[$index].aiAlumnoCarrera.aiAlumno.urlFoto}}"/>
+                          </span>
+                    </div>
+                </div>
+            </td>
+            <td style=" font-size:10px; vertical-align: middle ; font-weight:bold">
+                {{nalumnos[$index].aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}
+            </td>
+            <td style="vertical-align: middle ">{{nalumnos[$index].aiAlumnoCarrera.aiAlumno.apellidoPaterno}} {{nalumnos[$index].aiAlumnoCarrera.aiAlumno.apellidoMaterno}}, {{nalumnos[$index].aiAlumnoCarrera.aiAlumno.nombre}}</td>
+        	<td ng-repeat="t in practicasT[a.idAlumnoMatriculaCurso]" style="vertical-align: middle">
+        		<input type="text" name="input{{a.id}}T{{$index+1}}" ng-model="t.nota" style="padding-left:9%; padding-right:0px" ng-Change="insertNotaDetalle(a,t.nota,$index,'1')" 
+                ng-disabled="notaDisT[a.idAlumnoMatriculaCurso][$index].nota != null" >
+        	</td>
+        	<td class="centerElement col-lg-1" ng-class="{notaAprobada: aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaT), notaDesaprobada: !aprobado(a.aiAlumnoMatriculaCursoNota.promPracticaT)}" style="vertical-align: middle; font-weight: bold">
+	       		{{a.aiAlumnoMatriculaCursoNota.promPracticaT}}
+	       	</td>
+        </tr>
+    </tbody>
+</table>

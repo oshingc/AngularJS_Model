@@ -1,0 +1,57 @@
+<div class="popover" style="z-index:99999;min-width:230px;max-width:300px;">
+  <div class="arrow"></div>
+  <h2 class="popover-title text-info" ng-bind="title" ng-show="title"></h2>
+  <div class="overflow-aviso-popover margin-top-small">
+      <table class="table responsive-table table-striped">
+          <thead>                    
+          </thead>
+          <tbody>           
+            <tr ng-repeat="a in avisos" >
+              <td>
+
+               <a data-toggle="modal" href="#avisosModal" data="a" ng-click="showModal(a)">
+                <div>
+                  <label class="label-aviso-popover" >{{a.titulo}}</label>
+                  <label class="label-aviso-popover label-aviso-fecha-popover">{{formatoFecha(a.fechaRegistro)}}</label>
+                </div>
+               </a>
+              
+                <!--Modal-->
+               <div class="modal fade" id="avisosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">{{titulo}}</h4>
+                        <h5 aria-hidden="true" class="btn-block text-right">
+                          {{formatoFecha(a.fechaRegistro)}}
+                        </h5>
+                      </div>
+                      <div class="modal-body">
+                        <div id="det"></div>
+                        <div id="arc"></div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
+              </td>   
+              </tr>                          
+          </tbody>
+      </table>
+
+  </div>
+
+
+<div ng-show="avisos.length==0">
+   
+                        <h4 class="modal-title" style="font-size:14px;margin:10px;">No hay nuevos avisos</h4>
+                        </div>          
+      <!-- Modal -->
+  <div class="popover-content" ng-bind="content" ng-show="content">
+
+  </div>
+</div>

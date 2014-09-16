@@ -1,0 +1,227 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" style="width: 95%;font-size: 8pt;">
+    <div class="modal-content" >
+      
+      <div class="modal-body" style="padding-bottom: 0px;">
+              <div class="hidden-xs">
+
+              <table class="table-responsive" style="margin-left: 350px;">
+
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td style="float:right; width:3%;"><b>Curso:</b></td>
+                  <td style="padding-left: 40px;">{{selectedHorario.title}}</td>
+                </tr>
+
+                <tr>
+                <td style="float:right; width:20%;"><b>Período:</b> </td>
+                <td style="padding-left: 40px;"> {{selectedHorario.periodo}}</td>
+                </tr>
+
+                <tr>
+                  <td style="float:right; width:20%;"><b>Horario:</b> </td>
+                  <td style="padding-left: 40px;">{{hourFormat(formatoHoraDeHorarioBox(selectedHorario.start.getHours(),selectedHorario.start.getMinutes()))}} - {{hourFormat(formatoHoraDeHorarioBox(selectedHorario.end.getHours(),selectedHorario.end.getMinutes()))}}</td>
+                </tr>
+
+              </tbody>
+              </table>
+
+              </div>
+
+
+              <div class="visible-xs">
+
+              <table class="table-responsive">
+
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td style="float:right; width:3%;"><b>Curso:</b></td>
+                  <td style="padding-left: 40px;">{{selectedHorario.title}}</td>
+                </tr>
+
+                <tr>
+                <td style="float:right; width:20%;"><b>Período:</b> </td>
+                <td style="padding-left: 40px;"> {{selectedHorario.periodo}}</td>
+                </tr>
+
+                <tr>
+                  <td style="float:right; width:20%;"><b>Horario:</b> </td>
+                  <td style="padding-left: 40px;">{{hourFormat(formatoHoraDeHorarioBox(selectedHorario.start.getHours(),selectedHorario.start.getMinutes()))}} - {{hourFormat(formatoHoraDeHorarioBox(selectedHorario.end.getHours(),selectedHorario.end.getMinutes()))}}
+                  
+                  <div style="height:5px;"></div>
+                  </td>
+                </tr>
+
+              </tbody>
+              </table>
+                                              
+            </div>
+
+                <div id="defaultTable" class="body collapse in hidden-xs">
+                <table class="table responsive-table zebra-striped">
+                  <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th>Foto</th>
+                      <th>Código</th>
+                      <th>Nombre</th>
+                      <th>Apellido Paterno</th>
+                      <th>Apellido Materno</th>                      
+                      <th>Carrera</th>
+                      <th style="text-align:center;">Semestre</th>
+                      <th>Sección</th>
+                      <th style="text-align:center;">Grupo</th>
+                    </tr>
+                  </thead>
+                  <tbody>           
+                      <tr ng-repeat="a in alumnos" >
+                          <td>{{$index+1}}.</td>
+                          <td>
+                            <div class="profile-photo-data">
+                            <div>
+                            <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'M'" />
+
+                            <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'F'" />
+                            
+
+                            <span style="width:150px;">
+                              
+                              <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" tyle="height:100% !important; width:150px !important" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'M'" />
+
+                              <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" tyle="height:100% !important; width:150px !important" ng-show="a.aiAlumnoCarrera.aiAlumno.sexo == 'F'" />
+
+                            </span>
+                            </div>
+                            </div>
+
+                          </td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.nombre}}</td>   
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.apellidoPaterno}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiAlumno.apellidoMaterno}}</td>
+                          <td>{{a.aiAlumnoCarrera.aiCarrera.nombre}}</td>                          
+                          <td style="text-align:center;">{{a.semestre}}</td>  
+                          <td>{{a.seccionReferencial}}</td>
+                          <td style="text-align:center;">{{a.grupoReferencial}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!--Table with responsive components-->
+              <div class="visible-xs" style="width:100%;" ng-repeat="a in alumnos">
+
+              <header style="width:30px;">
+              
+              </header>
+              <table style="width:100%;">
+
+              <thead>
+              <th></th>
+              <th></th>
+              </thead>
+
+              <tbody>
+              <tr>
+                <td>
+
+                <div>
+               <div class="panel panel-success" style="width:100%; " >
+
+                  <div class="panel-heading" style="width:100%;">
+
+                    <h3 class="panel-title" style="font-size:10px; text-align:center;">
+                      {{a.aiAlumnoCarrera.aiAlumno.nombre}}            
+                      {{a.aiAlumnoCarrera.aiAlumno.apellidoPaterno}} {{a.aiAlumnoCarrera.aiAlumno.apellidoMaterno}}
+
+                    </h3>
+                    <h3 class="panel-title" style="font-size:10px; text-align:center;"> {{capitalize(a)}}</h3>
+                   
+                  </div>
+
+
+
+                  <div class="panel-body no-borders">
+
+
+                    <table>
+
+                    <thead></thead>
+                    <tbody>
+
+                    <tr>
+
+                    <td>
+
+                    
+                    <div class="profile-photo-data" style="padding-right: 0px;padding-left: 10px;padding-top: 10px;padding-bottom: 10px;">
+                      <img fallback-src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSAw_zNXJxm5-lrB1nS1C4Apck21EaLYlfxiMqucd2N9HCqu6G-Qw" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoCarrera.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="100%" width="50px" />
+                    </div>
+
+                    </td>
+
+                    <td>
+
+
+                      <div >
+                        <label style="padding-left: 40px;">Semestre:</label> {{a.semestre}}
+                      </div>
+                      <div >
+                        <label style="padding-left: 40px;">Sección:</label>{{a.seccionReferencial}}
+                      </div>
+                      <div >
+                        <label style="padding-left: 40px;">Grupo:</label>{{a.grupoReferencial}}
+                      </div>
+                      <!--<div>
+                        <label>Nom. Carrera:</label> {{a.aiAlumnoCarrera.aiCarrera.nombre}}
+                      </div>-->
+
+                    </td>
+
+                    </tr>
+
+                    </tbody>
+
+                  </table>
+                    
+                  </div>
+
+                </div>
+
+                </div>
+
+              
+              </td>
+            </tr>
+
+              </tbody>
+            </table>
+
+
+            </div>
+
+            
+      </div>
+
+      <div class="modal-footer hidden-xs">
+        <button type="button" class="btn btn-default" ng-click="$hide()">Cerrar</button>
+      </div>
+
+      <div class="modal-footer visible-xs" style="width:95%;">
+      <!---->
+        <button type="button" class="btn btn-default" ng-click="$hide()">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>

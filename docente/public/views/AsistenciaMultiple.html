@@ -1,0 +1,238 @@
+<div style="font-size:12px">
+<div class="box primary" style="background-color:white;z-index:1">
+    <header>
+        <div class="icons">
+            <i class="glyphicon glyphicon-ok"></i>
+        </div>
+        <div>
+            <h5 >Asistencias Por Mes</h5>
+        </div>
+        <div class="hidden-xs">
+        
+            <button href="" class="btn btn-success back-button" ng-click="$hide();linkMenuPrin('user.horario')">
+            <i class="fa fa-arrow-left "><span class="text-button"> Atrás</span></i>
+            </button>
+            <button type="button" class="btn btn-default back-button" ng-model="mostrarTardanzas" blur-when-click bs-checkbox>{{etiquetaBtnTardanzas()}}</button>
+            <button type="button" class="btn btn-danger btn-round btn-line back-button" ng-click="exportarAsistenciasPDF()"  >Reporte <image src="/img/pdf_button.png" id="AE_btn_pdf" style="width:27px;height:27px;" /></button>
+        </div>
+        
+        <div class="visible-xs">
+            <button href="" class="btn btn-success back-button" title="Atrás" ng-click="$hide();linkMenuPrin('user.horario')" style="width:50px">
+            <i class="fa fa-arrow-left"></i>
+            </button>
+        </div>        
+    </header>
+</div>
+
+<div ng-show="clasesAnteriores.length>0" class="center">
+    <div ng-show="claseEscogida!=null" style="font-size:14px;margin-bottom:0.5em;"><strong> Clases del {{selectedDate.format('dddd').toUpperCase()}}:</strong></div>
+    <div  style="margin-bottom:1em;">
+     <select ng-model="claseEscogida" ng-options="formatearClaseActual(c) for c in clasesAnteriores"  ng-change="elegirClase()">
+            <option value="">Seleccione un curso</option>
+    </select>
+    <br/>
+</div>
+
+</div>
+
+<!--Datepicker-->
+<div  class="hidden-xs center"><!--style="padding-left: 380px;"-->
+
+    <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}" >
+
+        <label class="control-label" ><i class="fa fa-calendar"></i> Mes: </label>
+                      
+        <button type="button" class="btn btn-default" ng-model="selectedMonth" ng-options="m as m.format('MMMM - YYYY') for m in mesesClaseEscogida" ng-change="onMonthChange()" 
+        placeholder="Seleccione" ng-disabled="clasesAnteriores.length==0" bs-select>
+          Action <span class="caret"></span>
+        </button>   
+     
+    </div>
+
+</div>
+
+<!--Datepicker with responsive design-->
+<div  style="padding-bottom:1em;" class="visible-xs center">
+    <div class="form-group center" ng-class="{'has-error': datepickerForm.date.$invalid}" >
+        <table style="width:40%;margin-left:30%;margin-right:30%;">
+            <thead>
+                <th></th>
+                <th></th>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <label class="control-label" style="padding-right:2em;"><i class="fa fa-calendar"></i> Fecha: </label>
+                    </td>
+                    <td>                    
+                        <input id="datepicker" type="text" class="form-control" data-placement="bottom" ng-model="selectedDate" style="height:24px !important; font-size:10pt;" data-date-format="dd-MM-yyyy" data-animation="" name="date" bs-datepicker data-max-date="today" />
+                    </td>               
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!------------------ Fin diseño responsive -------------------->
+
+
+
+<!--Tabla de Asistencias-->
+<div class="min-height-table-asistencias hidden-xs">
+    <span ng-show="c!=null && asistencias==null">{{tableEmpty}}</span>
+
+    <div ng-show="clasesAnteriores.length==0">{{noHayClases}}</div>
+
+    <table class="table responsive-table zebra-striped sticky-header intercalated-color-row" ng-show="asistencias.length>0">
+        <thead class="border-tableHeader">
+            <tr  class="header-blue">
+                <th style="width:2%">
+                    <br/>
+                    <div class="text-header-list">N°</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:4%" >
+                    <br/>
+                    <div class="text-header-list">Foto</div>                
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:5%">
+                    <br/>
+                    <div class="text-header-list">Código</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:5%">
+                    <br/>
+                    <div class="text-header-list">Sección</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:2%">
+                    <br/>
+                    <div class="text-header-list">Grupo</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:30%">
+                    <br/>
+                    <div class="text-header-list">Apellidos y Nombres</div>
+                    <div style="height:15px"></div>
+                </th>            
+                
+                <th ng-repeat="f in fechasClaseElegida" style="width:4%;text-align:center;" >
+                    <input type="checkbox" ng-model="seleccionGlobal[f.idAsistencia]" ng-change="onSeleccionGlobalChange(f.idAsistencia)"/>
+                    <div>{{f.fecha.format('DD/MMM').replace(".", "")}}</div>
+                    <div>{{f.intervaloClase}}</div>
+                    <div>{{f.fecha.format('dd')}}</div>
+
+                </th>
+
+                <th style="width:6%; text-align:center;">
+                    <br/>
+                    <div class="text-header-list" style="text-align:center;">Inasistencias (%)</div>
+                </th>    
+            </tr>
+        </thead>
+        <tbody>           
+            <tr ng-repeat="a in asistencias | orderBy: 'aiAlumnoAsistencia.aiAlumno.apellidoPaterno'" class="list-style" block-ui-ng-repeat>
+                <td>{{$index+1}}.</td>
+                <td>
+                     <div class="profile-photo-data">
+                        <div>
+                            <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+                            <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" height="26px" width="26px" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+                            
+                            <span style="width:150px;">
+                               <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'M'" />
+
+                                <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive" ng-src="http://server-pr:8080/fotos/carrera/{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}.JPG" style="height:100% !important; width:150px !important" ng-show="a.aiAlumnoAsistencia.aiAlumno.sexo == 'F'" />
+
+                            </span>
+                        </div>
+                    </div>
+                </td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}</td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}</td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.grupo}}</td>
+                <td style="font-size:14px">{{nombreCompleto(a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno,a.aiAlumnoAsistencia.aiAlumno.apellidoMaterno,a.aiAlumnoAsistencia.aiAlumno.nombre)}} </td> 
+
+               
+                <td ng-repeat="f in fechasClaseElegida" style="font-size:16px;">
+                    <div ng-class="{'light-red-brackground': a.asistencias[f.idAsistencia].id==null}" class="center" ng-hide="esAlumnoBloqueadoPorDPI(a) || !a.matriculado">
+                    <label ng-show="mostrarTardanzas" style="font-weight:normal !important;">A:</label> <input type="checkbox" ng-model="a.asistencias[f.idAsistencia].asistio" ng-change="onChangeAsistencia(a.asistencias[f.idAsistencia],true)" ng-disabled="!asistenciasHabilitadas[f.idAsistencia]"/><br>
+                    <div ng-show="mostrarTardanzas">
+                    <label style="font-weight:normal !important;">T: </label> <input type="checkbox" ng-model="a.asistencias[f.idAsistencia].tardanza" ng-change="onChangeAsistencia(a.asistencias[f.idAsistencia],false)" ng-disabled="!asistenciasHabilitadas[f.idAsistencia]"/>
+                    </div>
+                    </div>
+                </td>
+
+                <td>
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>                   
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!------------------ Lista con diseño responsive -------------------->
+
+<div class="visible-xs">
+    <span ng-show="asistencias.length==0">{{tableEmpty}}</span>
+
+    <table class="table table-bordered zebra-striped" ng-show="asistencias.length>0">
+        <thead>
+            <tr>
+                <th>
+                    <div >N°</div>
+                </th>
+                <th>
+                    <div >Apellidos y Nombres</div>
+                </th>            
+                <th>
+                    <div style="text-align:center">¿Asistió?</div>
+                    <div style="text-align:center">
+                        <input id="asist" type="checkbox" data-ng-click="triggerAll(asistencias)" ng-show="habilitarRegistroDeAsistencia()"> </input>
+                    </div>
+                    <div ng-hide="habilitarRegistroDeAsistencia()" ></div>
+                </th>     
+                <th>
+                    <div style="text-align:center">¿Tarde?</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>           
+            <tr ng-repeat="a in asistencias | orderBy: '+aiAlumnoAsistencia.aiAlumno.apellidoPaterno'" class="list-style">
+                <td>{{$index+1}}.</td>
+                <td>
+                    <a style="color:black"title="{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}} - {{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}" data-content="{{a.aiAlumnoAsistencia.aiCarrera.nombre}}" data-trigger="hover" data-placement="right-bottom" data-animation="" data-template="views/template/Asistencia/DetalleAlumnoPopover.html"  bs-popover>
+                    {{a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno}},{{a.aiAlumnoAsistencia.aiAlumno.nombre}}
+                    </a> 
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>   
+                <td>
+                    <input type="checkbox" ng-model="a.aiAlumnoAsistencia.asistio" ng-change="updateSelectedAsistencia(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)">                       
+                    </input> 
+                </td> 
+                <td style="text-align:center">
+                    <input type="checkbox" ng-model="a.aiAlumnoAsistencia.tardanza" ng-change="updateSelectedTardanza(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)">                 
+                    </input>
+                </td>                
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!------------------ Fin diseño responsive -------------------->
+
+<div class="center" ng-show="actualizacionAsistenciasHabilitada()">
+     <button id="btnMsg" type="button" class="btn btn-lg btn-primary" style="width:222px;border-bottom-width: 1px;margin-bottom: 12px;" ng-click="procesarAsistencias()"
+            data-placement="initial-state"  data-duration="6" bs-alert="alert" >
+        {{mensajeBotonGrabar}}
+    
+    </button>
+
+    <!--data-placement es la propiedad que indica que clase de estilo usa de app.styl-->
+
+</div>
+<!--Fin de la tabla-->
+</div>

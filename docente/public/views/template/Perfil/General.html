@@ -1,0 +1,205 @@
+<div class="container">
+
+
+<form class="form-horizontal" id="form-display" name="form-display" ng-submit="updateProfile(btnMessage)">
+
+    <div class="row visible-xs">
+        <div class="col-xs-8 col-xs-offset-2">
+          <div class="text-center">
+              <img fallback-src="img/profile-photos/profile-male.gif"
+                    ng-src="http://server-pr:8080/fotos/docentes/{{datos.codigo}}.jpg" ng-show="datos.sexo == 'M'"
+                    class="img-responsive img-thumbnail img-circle shadowCustom">
+              <img fallback-src="img/profile-photos/profile-female.jpg"
+                    ng-src="http://server-pr:8080/fotos/docentes/{{datos.codigo}}.jpg" ng-show="datos.sexo == 'F'"
+                    class="img-responsive img-thumbnail img-circle shadowCustom">
+
+                <input type="button" class="btn btn-primary btn-lg margin-top-small" 
+                        style="max-width: 253px;" 
+                        ng-click="updateProfile(btnMessage)" ng-value="btnMessage"/>
+          </div>
+        </div>
+    </div>
+
+        <div class="box no-border hidden-xs">
+          <h4 class="primary">{{fullname}}</h4>
+        </div>
+
+        <div class="box no-border text-center visible-xs">
+          <h4 class="danger">{{fullname}}</h4>
+        </div>
+
+
+    <div class="row control-group">
+
+    <!--Primera Columna de Datos-->
+        <div class="col-md-4 col-sm-4">
+
+            <div class="span4">
+                <label class="control-label" for="codigo">Código Docente: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="codigo" ng-model="datos.codigo"  disabled>
+                </div>
+            </div>
+
+
+            <div class="span5">
+                <label class="control-label" for="dni">Número de Documento: </label>
+
+                <div class="controls">
+                     <input class="form-control" type="text" id="dni"  ng-model="datos.nroDocumento" disabled>
+                </div>
+            </div>
+
+             <div class="span4">
+                <label class="control-label" for="pais">País: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="pais" ng-model="datos.pais.nombre"  disabled>
+                </div>
+            </div>
+
+
+            <div class="span4">
+                <label class="control-label" for="tipoDoc">Tipo de Documento: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="tipoDoc"  ng-model="datos.tipoDocumento.descripcion" disabled>
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="fechaNac">Fecha de Nacimiento: </label>
+
+                <div class="controls">
+                   
+                
+                          <div data-date-format="dd-mm-yyyy" id="dp3" class="input-group input-append date">
+                            <input type="text" readonly="" format="dd/mm/yyyy" ng-model="datos.fechaNacimiento" class="form-control" style="width:100%;">
+                            <span class="input-group-addon add-on"><i class="fa fa-calendar"></i></span> 
+                          </div>                
+               
+                </div>
+            </div>
+
+
+            <div class="span4">
+                <label class="control-label" for="ruc">RUC: </label>
+
+                <div class="controls">
+                    <input class="form-control"  type="text" id="ruc"  ng-model="datos.ruc" disabled>
+                </div>
+            </div>
+
+
+            
+            <div class="span4">
+                <label class="control-label" for="esChef">¿Es Chef?: </label>
+                <div class="controls checkbox">
+                  <label class="control-label">
+                    <input id="esChef" type="checkbox" ng-model="datos.esChef" disabled>Chef: 
+                  </label>
+                
+                </div>
+            </div>
+
+            <div style="height:12px;"></div>
+
+
+        </div>
+
+
+
+
+        <!--Segunda Columna de Datos-->
+        <div class="col-md-4 col-sm-4">  
+
+
+            <div class="span4">
+                <label class="control-label" for="dir">Dirección: </label>
+
+                <div class="controls">
+                    <textarea class="form-control" type="text" id="dir"  ng-model="datos.direccion" disabled></textarea>
+                </div>
+            </div>
+
+
+            <div class="span4">
+                <label class="control-label" for="estCivil">Estado Civil: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="estCivil"  ng-model="datos.estadoCivil.descripcion" disabled>
+                </div>
+            </div>
+
+
+            
+            <div class="span5">
+                <label class="control-label" for="sexo">Sexo: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="sexo"  ng-model="sexo" disabled>
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="tel">Teléfono: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="tel" ng-model="datos.telefono" onkeydown="return (event.keyCode >=48 && event.keyCode<=57)||(event.keyCode ==8 ||event.keyCode ==37 || event.keyCode ==39 || event.keyCode ==36 || event.keyCode ==35 || event.keyCode ==46 || event.keyCode ==32)" disabled>
+                </div>
+            </div>
+
+            <div class="span5">
+                <label class="control-label" for="movil">Celular: </label>
+
+                <div class="controls">
+                    <input name="in-celular" class="form-control" id="movil"  ng-model="datos.telefonoMovil" 
+                    onkeydown="return (event.keyCode >=48 && event.keyCode<=57)||(event.keyCode ==8 ||event.keyCode ==37 || event.keyCode ==39 || event.keyCode ==36 || event.keyCode ==35 || event.keyCode ==46 || event.keyCode ==32)
+              " disabled>
+                </div>
+            </div>
+
+            <div class="span4">
+                <label class="control-label" for="correoPer">Correo Personal: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="correoPer" name="email1" ng-model="datos.correoPersonal"  disabled>
+                </div>
+            </div>
+           
+            <div class="span5">
+                <label class="control-label" for="correoInst">Correo Institucional: </label>
+
+                <div class="controls">
+                    <input class="form-control" type="text" id="correoInst"  ng-model="datos.correoInstitucional" disabled>
+                </div>
+            </div>
+
+            <div style="height:17px;"></div>
+        </div>   
+
+        <div class="col-md-4 col-sm-4 hidden-xs" >
+
+            <img fallback-src="img/profile-photos/profile-male.gif" class="img-responsive img-thumbnail shadowCustom"
+                  ng-src="http://server-pr:8080/fotos/docentes/{{datos.codigo}}.jpg" ng-show="datos.sexo=='M'"
+                  >
+
+            <img fallback-src="img/profile-photos/profile-female.jpg" class="img-responsive img-thumbnail shadowCustom"
+                  ng-src="http://server-pr:8080/fotos/docentes/{{datos.codigo}}.jpg" ng-show="datos.sexo=='F'"
+                  >
+            
+            <div class="margin-top-small">
+                <input type="submit" class="btn btn-lg btn-block btn-primary" 
+                    style="max-width: 253px;" ng-value="btnMessage"/>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+
+
+
+  </div><!-- /container -->

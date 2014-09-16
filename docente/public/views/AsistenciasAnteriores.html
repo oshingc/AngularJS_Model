@@ -1,0 +1,246 @@
+<div style="font-size:12px">
+<div class="box primary" style="background-color:white;z-index:1">
+    <header>
+        <div class="icons">
+            <i class="glyphicon glyphicon-ok"></i>
+        </div>
+        <div>
+            <h5 >Asistencias Anteriores</h5>
+        </div>
+        <div class="hidden-xs">
+         <button href="" class="btn btn-success back-button" ng-click="$hide();linkMenuPrin('user.horario')">
+            <i class="fa fa-arrow-left "><span class="text-button"> Atrás</span></i>
+         </button>
+        </div>
+        <div class="visible-xs">
+         <button href="" class="btn btn-success back-button" title="Atrás" ng-click="$hide();linkMenuPrin('user.horario')" style="width:50px">
+            <i class="fa fa-arrow-left"></i>
+         </button>
+        </div>
+    </header>
+</div>
+
+<!--Datepicker-->
+<div  style="padding-left:39%;" class="hidden-xs">
+<!--style="padding-left: 380px;"-->
+<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}" >
+	<table>
+		<thead>
+			<th></th>
+			<th></th>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>
+					  <label class="control-label"><i class="fa fa-calendar"></i> Fecha: </label>
+				</td>
+				<td>					
+    				<input id="datepicker" type="text" class="form-control" ng-model="selectedDate" style="height:24px !important; font-size:10pt;" data-date-format="dd-MM-yyyy" data-animation="" name="date" bs-datepicker ng-change="getClick()" data-max-date="today">
+				</td>				
+			</tr>
+		</tbody>
+	</table>
+  
+</div>
+
+</div>
+
+<!--Datepicker with responsive design-->
+<div  style="padding-left:25%;" class="visible-xs">
+    <div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}" >
+        <table>
+            <thead>
+                <th></th>
+                <th></th>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                          <label class="control-label"><i class="fa fa-calendar"></i> Fecha: </label>
+                    </td>
+                    <td>                    
+                        <input id="datepicker" type="text" class="form-control" data-placement="bottom" ng-model="selectedDate" style="height:24px !important; font-size:10pt;" data-date-format="dd-MM-yyyy" data-animation="" name="date" bs-datepicker ng-change="getClick()" data-max-date="today">
+                    </td>               
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!------------------ Fin diseño responsive -------------------->
+
+<div style="margin-bottom: 1%; margin-top: -3%; margin-left: 90%;">
+<!-- style="margin-bottom: 10px; margin-top: -38px; margin-left: 1125px;"-->
+</div>
+<!--end Datepickers-->
+
+<!--Lista de Clases-->
+
+<div></div>
+
+<div ng-show="clasesAnteriores.length>0" class="centerElement" style="margin-top:4%;">
+ <select ng-model="c" ng-options="c.aiCurso.nombre+' '+toHourFormat(c.horaInicio)+' - '+toHourFormat(c.horaFin) for c in clasesAnteriores"  ng-change="elegirClase(c)">
+<option value="">Seleccione un curso</option>
+ <!--<select ng-model="c.idAsistencia" ng-options="c.aiCurso.nombre group by c.aiCurso.nombre for c in clasesActuales" style="padding-left: 0px;margin-left: 300px;">
+ -->
+</select><br/>
+</div>
+
+
+
+
+<!--Tabla de Asistencias-->
+<div class="min-height-table-asistencias hidden-xs">
+    <span ng-show="c!=null && asistencias==null">{{tableEmpty}}</span>
+
+    <div ng-show="clasesAnteriores.length==0">{{noHayClases}}</div>
+    <span ng-show="clasesAnteriores.length>0 && c==null">No hay clase elegida</span>
+
+    <table class="table responsive-table zebra-striped" ng-show="asistencias.length>0">
+        <thead>
+            <tr>
+                <th style="width:5%">
+                    <div class="text-header-list">N°</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:6%" >
+                    <div class="text-header-list">Foto</div>                
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:9%">
+                    <div class="text-header-list">Código</div>
+                    <div style="height:15px"></div>
+                </th>
+                  <th style="width:9%">
+                    <div class="text-header-list">Sección</div>
+                    <div style="height:15px"></div>
+                </th>
+                <th style="width:9%">
+                    <div class="text-header-list">Grupo</div>
+                    <div style="height:15px"></div>
+                </th>
+            	<th style="width:48%">
+                    <div class="text-header-list">Apellidos y Nombres</div>
+                    <div style="height:15px"></div>
+                </th>            
+            	<!--<th style="width:24%">
+                    <div class="text-header-list">Nombres</div>
+                    <div style="height:15px"></div>
+                </th>-->
+                <th style="width:10%; text-align:center;">
+                    <div class="text-header-list" style="text-align:center">Asistencia</div>
+                    <input id="asist" style="text-align:center" type="checkbox" data-ng-click="triggerAll(asistencias)" ng-show="habilitarRegistroDeAsistencia()"></input>
+                    <div ng-hide="habilitarRegistroDeAsistencia()" style="height:15px;"></div>
+                   
+                </th>
+                <th style="width:10%; text-align:center;">
+                    <div class="text-header-list" style="text-align:center">Tardanza</div>
+                    <div style="height:17px"></div>
+                    
+                </th>  
+
+                <!--<th style="width:6%; text-align:center; font-size:11pt;">
+                    <div>Inasistencias Totales</div>
+                </th>-->
+
+                <th style="width:6%; text-align:center;">
+                        <div class="text-header-list" style="text-align:center;">Inasistencias (%)</div>
+                </th>    
+            </tr>
+        </thead>
+        <tbody>           
+            <tr ng-repeat="a in asistencias | orderBy: '+aiAlumnoAsistencia.aiAlumno.apellidoPaterno'" class="list-style" block-ui-ng-repeat>
+                <td>{{$index+1}}.</td>
+                <td>
+                    <div class="profile-photo-data">
+                        <div>
+                           
+                        </div>
+                    </div>
+                </td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}}</td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}</td>
+                <td style="font-size:14px">{{a.aiAlumnoAsistencia.grupo}}</td>
+                <td style="font-size:14px">{{nombreCompleto(a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno,a.aiAlumnoAsistencia.aiAlumno.apellidoMaterno,a.aiAlumnoAsistencia.aiAlumno.nombre)}} </td>   
+
+                
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.asistio" ng-change="updateSelectedAsistencia(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>           
+                <td style="text-align:center"><input type="checkbox" ng-model="a.aiAlumnoAsistencia.tardanza" ng-change="updateSelectedTardanza(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)"></input></td>
+
+                <!--<td style="text-align:center;">{{a.clasesAsistidas}}</td>-->
+
+                <td>
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>                   
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!------------------ Lista con diseño responsive -------------------->
+
+<div class="visible-xs">
+    <span ng-show="asistencias.length==0">{{tableEmpty}}</span>
+
+    <table class="table table-bordered zebra-striped" ng-show="asistencias.length>0">
+        <thead>
+            <tr>
+                <th>
+                    <div >N°</div>
+                </th>
+                <th>
+                    <div >Apellidos y Nombres</div>
+                </th>            
+                <th>
+                    <div style="text-align:center">¿Asistió?</div>
+                    <div style="text-align:center">
+                        <input id="asist" type="checkbox" data-ng-click="triggerAll(asistencias)" ng-show="habilitarRegistroDeAsistencia()"></input>
+                    <div>
+                    <div ng-hide="habilitarRegistroDeAsistencia()" ></div>
+                </th>     
+                <th>
+                    <div style="text-align:center">¿Tarde?</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>           
+            <tr ng-repeat="a in asistencias | orderBy: '+aiAlumnoAsistencia.aiAlumno.apellidoPaterno'" class="list-style">
+                <td>{{$index+1}}.</td>
+                <td>
+                    <a style="color:black"title="{{a.aiAlumnoAsistencia.aiAlumno.aiAlumnoReg.codigo}} - {{a.aiAlumnoAsistencia.aiCarreraSeccion.codigo}}" data-content="{{a.aiAlumnoAsistencia.aiCarrera.nombre}}" data-trigger="hover" data-placement="right-bottom" data-animation="" data-template="views/template/Asistencia/DetalleAlumnoPopover.html"  bs-popover>
+                    {{a.aiAlumnoAsistencia.aiAlumno.apellidoPaterno}},{{a.aiAlumnoAsistencia.aiAlumno.nombre}}
+                    </a> 
+                    <div ng-barrainasistencia ng-porcentaje="a.aiAlumnoMatriculaCurso.porcentajeInasistencia"></div>
+                </td>   
+                <td>
+                    <input type="checkbox" ng-model="a.aiAlumnoAsistencia.asistio" ng-change="updateSelectedAsistencia(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)">                       
+                    </input> 
+                </td> 
+                <td style="text-align:center">
+                    <input type="checkbox" ng-model="a.aiAlumnoAsistencia.tardanza" ng-change="updateSelectedTardanza(a)" ng-disabled="isPorcentajeInasistenciaMaximo(a)">                 
+                    </input>
+                </td>                
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!------------------ Fin diseño responsive -------------------->
+
+<div style="text-align:center; " ng-show="habilitarRegistroDeAsistencia(asistencias)">
+	 <button id="btnMsg" type="button" class="btn btn-lg btn-primary" style="width:222px;border-bottom-width: 1px;margin-bottom: 12px;"
+            data-placement="initial-state"  data-duration="6" bs-alert="alert" ng-click="edit()" ng-hide="claseActual.length==0">{{btnMessage}}
+    </button>
+
+    <!--data-placement es la propiedad que indica que clase de estilo usa de app.styl-->
+
+</div>
+<!--Fin de la tabla-->
+
+
+</div>
+
+</div>
+</div>
